@@ -4,6 +4,9 @@ on:
   repository_dispatch:
     types: [release]
 
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -23,7 +26,6 @@ jobs:
           TAG="${{ steps.release.outputs.tag }}"
           BASE="https://github.com/rishabhkeshan/o2-cli-bot/releases/download/${TAG}"
 
-          # Wait for binaries to be available (they build after npm publish)
           for i in 1 2 3 4 5; do
             if curl -sLf -o /dev/null "${BASE}/o2-bot-macos-arm64"; then break; fi
             echo "Waiting for binaries... (attempt $i)"
@@ -41,7 +43,7 @@ jobs:
       - name: Update formula
         run: |
           VERSION="${{ steps.release.outputs.version }}"
-          cat > Formula/o2-bot.rb << FORMULA
+          cat > Formula/o2-bot.rb <<FORMULA
           class O2Bot < Formula
             desc "CLI-based automated trading bot for O2 Exchange on Fuel Network"
             homepage "https://github.com/rishabhkeshan/o2-cli-bot"
@@ -86,5 +88,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Formula/o2-bot.rb
+          git diff --staged --quiet && echo "No changes" && exit 0
           git commit -m "Update o2-bot to ${{ steps.release.outputs.version }}"
           git push
