@@ -1,20 +1,20 @@
 class O2Bot < Formula
   desc "CLI-based automated trading bot for O2 Exchange on Fuel Network"
   homepage "https://github.com/rishabhkeshan/o2-cli-bot"
-  version "1.0.4"
+  version "1.0.5"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/rishabhkeshan/o2-cli-bot/releases/download/v#{version}/o2-bot-macos-arm64"
-      sha256 "10237c765edf1540f5cecdb2ce75136024b4ffe7aa19211702b8d8be525c36b8"
+      sha256 "2a455f37d45b5b5a6b977f1b605e786157a8841297781cc295595bef2f350a9c"
 
       def install
         bin.install "o2-bot-macos-arm64" => "o2-bot"
       end
     else
       url "https://github.com/rishabhkeshan/o2-cli-bot/releases/download/v#{version}/o2-bot-macos-x64"
-      sha256 "25d6306c72d37b8d09270becbeba4f6d4e9115eb3cbcb4e31a31b745e0aeef0b"
+      sha256 "0b24f1c8adcdffb883430894adae8b00198132a003dcaafcf52421ca6e696469"
 
       def install
         bin.install "o2-bot-macos-x64" => "o2-bot"
@@ -24,7 +24,7 @@ class O2Bot < Formula
 
   on_linux do
     url "https://github.com/rishabhkeshan/o2-cli-bot/releases/download/v#{version}/o2-bot-linux-x64"
-    sha256 "b810f0cabed73d950ff699390e07d853a09747d784e5ac4789ecc218c446baff"
+    sha256 "1054ff1caf435507d3b865d6f1c6b3793af26afe9dbb1b423a374475549bca57"
 
     def install
       bin.install "o2-bot-linux-x64" => "o2-bot"
